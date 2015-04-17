@@ -71,12 +71,12 @@
 
 %token ABSTRACT
 %token BOOLEAN BREAK BYTE BYVALUE
-%token CASE CAST CATCH CHAR CLASS CONST CONTINUE
+%token CASE CAST CATCH CHAR CONST CONTINUE
 %token DEFAULT DO DOUBLE
 %token ELSE EXTENDS
 %token FINAL FINALLY FLOAT FOR FUTURE
 %token GENERIC GOTO
-%token IF IMPLEMENTS IMPORT INNER INSTANCEOF INT INTERFACE
+%token IF IMPLEMENTS USING INNER INSTANCEOF INT INTERFACE
 %token LONG
 %token NATIVE NEW JNULL
 %token OPERATOR OUTER
@@ -84,7 +84,7 @@
 %token REST RETURN
 %token SHORT STATIC SUPER SWITCH SYNCHRONIZED
 %token THIS THROW THROWS TRANSIENT TRY
-%token VAR VOID VOLATILE
+%token VOID VOLATILE
 %token WHILE
 %token OP_INC OP_DEC
 %token OP_SHL OP_SHR OP_SHRR
@@ -94,7 +94,9 @@
 %token ASS_MUL ASS_DIV ASS_MOD ASS_ADD ASS_SUB
 %token ASS_SHL ASS_SHR ASS_SHRR ASS_AND ASS_XOR ASS_OR
 %token IDENTIFIER LITERAL BOOLLIT
-
+%token FN REFLEX EMIT
+%token AGENT OBJECT TRAIT DIE
+%token VAL VAR
 %start CompilationUnit
 
 %%
@@ -109,9 +111,9 @@ TypeName
 	| QualifiedName
 	;
 
-ClassNameList
+ObjectNameList
         : QualifiedName
-        | ClassNameList ',' QualifiedName
+        | ObjectNameList ',' QualifiedName
 	;
 
 PrimitiveType
@@ -130,19 +132,17 @@ SemiColons
 	: ';'
         | SemiColons ';'
         ;
+%%
 
 CompilationUnit
 	: ProgramFile
         ;
 
 ProgramFile
-	: PackageStatement ImportStatements TypeDeclarations
-	| PackageStatement ImportStatements
-	| PackageStatement                  TypeDeclarations
-	|                  ImportStatements TypeDeclarations
-	| PackageStatement
-	|                  ImportStatements
-	|                                   TypeDeclarations
+	: PackageStatement UsingStatements TypeDeclarations
+	| PackageStatement                 TypeDeclarations
+	|                  UsingStatements TypeDeclarations
+	|                                  TypeDeclarations
 	;
 
 PackageStatement
@@ -159,14 +159,14 @@ TypeDeclarationOptSemi
         | TypeDeclaration SemiColons
         ;
 
-ImportStatements
-	: ImportStatement
-	| ImportStatements ImportStatement
+UsingStatements
+	: UsingStatement
+	| UsingStatements UsingStatement
 	;
 
-ImportStatement
-	: IMPORT QualifiedName SemiColons
-	| IMPORT QualifiedName '.' '*' SemiColons
+UsingStatement
+	: USING QualifiedName SemiColons
+	| USING QualifiedName '.' '*' SemiColons
 	;
 
 QualifiedName
@@ -175,18 +175,20 @@ QualifiedName
 	;
 
 TypeDeclaration
-	: ClassHeader '{' FieldDeclarations '}'
-	| ClassHeader '{' '}'
+	: ObjectHeader '{' FieldDeclarations '}'
+	| ObjectHeader '{'                   '}'
+	| AgentHeader  '{' FieldDeclarations '}'
+	| AgentHeader  '{'                   '}'
 	;
 
-ClassHeader
+ObjectHeader
 	: Modifiers ClassWord IDENTIFIER Extends Interfaces
 	| Modifiers ClassWord IDENTIFIER Extends
-	| Modifiers ClassWord IDENTIFIER       Interfaces
+	| Modifiers ClassWord IDENTIFIER         Interfaces
 	|           ClassWord IDENTIFIER Extends Interfaces
 	| Modifiers ClassWord IDENTIFIER
 	|           ClassWord IDENTIFIER Extends
-	|           ClassWord IDENTIFIER       Interfaces
+	|           ClassWord IDENTIFIER         Interfaces
 	|           ClassWord IDENTIFIER
 	;
 
@@ -199,22 +201,23 @@ Modifier
 	: ABSTRACT
 	| FINAL
 	| PUBLIC
-	| PROTECTED
 	| PRIVATE
 	| STATIC
-	| TRANSIENT
 	| VOLATILE
-	| NATIVE
-	| SYNCHRONIZED
 	;
 
 ClassWord
-	: CLASS
-	| INTERFACE
+	: OBJECT
+	| TRAIT
+	;
+
+Extends
+	: EXTENDS     TypeName
+	| EXTENDS ',' TypeName
 	;
 
 Interfaces
-	: IMPLEMENTS ClassNameList
+	: IMPLEMENTS ObjectNameList
 	;
 
 FieldDeclarations
@@ -292,7 +295,7 @@ DeclaratorName
         ;
 
 Throws
-	: THROWS ClassNameList
+	: THROWS ObjectNameList
 	;
 
 MethodBody
@@ -319,11 +322,6 @@ StaticInitializer
 NonStaticInitializer
         : Block
         ;
-
-Extends
-	: EXTENDS TypeName
-	| Extends ',' TypeName
-	;
 
 Block
 	: '{' LocalVariableDeclarationsAndStatements '}'

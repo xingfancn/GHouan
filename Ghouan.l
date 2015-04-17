@@ -98,7 +98,7 @@ Literal		({Numeric}|{Character}|{String})
 
 
 "package"	{return PACKAGE;}
-"import"	{return IMPORT;}
+"using"	        {return USING;}
 
 "boolean"	{return BOOLEAN;}
 "double"	{return DOUBLE;}
