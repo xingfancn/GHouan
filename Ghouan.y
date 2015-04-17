@@ -174,11 +174,14 @@ QualifiedName
 	| QualifiedName '.' IDENTIFIER
 	;
 
+
+%%
+
 TypeDeclaration
-	: ObjectHeader '{' FieldDeclarations '}'
-	| ObjectHeader '{'                   '}'
-	| AgentHeader  '{' FieldDeclarations '}'
-	| AgentHeader  '{'                   '}'
+	: ObjectHeader '{' FieldDeclarations      '}'
+	| ObjectHeader '{'                        '}'
+	| AgentHeader  '{' AgentFieldDeclarations '}'
+	| AgentHeader  '{'                        '}'
 	;
 
 ObjectHeader
@@ -220,6 +223,9 @@ Interfaces
 	: IMPLEMENTS ObjectNameList
 	;
 
+
+%% 
+
 FieldDeclarations
 	: FieldDeclarationOptSemi
         | FieldDeclarations FieldDeclarationOptSemi
@@ -231,7 +237,7 @@ FieldDeclarationOptSemi
         ;
 
 FieldDeclaration
-	: FieldVariableDeclaration ';'
+	: FieldVariableDeclaration 
 	| MethodDeclaration
 	| ConstructorDeclaration
 	| StaticInitializer
@@ -676,4 +682,35 @@ ConstantExpression
 	;
 
 %%
+
+AgentFieldDeclarations
+	: AgentFieldDeclarationOptSemi
+        | AgentFieldDeclarations AgentFieldDeclarationOptSemi
+	;
+
+AgentFieldDeclarationOptSemi
+        : AgentFieldDeclaration
+        | AgentFieldDeclaration SemiColons
+        ;
+
+AgentFieldDeclaration
+	: AgentPropertyDeclaration 
+	| AgentReflexDeclaration
+	| AgentFunctionDeclaration
+	| AgentConstructorDeclaration
+        ;
+
+AgentPropertyDeclaration
+	:
+	;
+AgentReflexDeclaration
+	:
+	;
+AgentFunctionDeclaration
+	:
+	;
+AgentConstructorDeclaration
+	:
+	;
+
 
