@@ -701,16 +701,38 @@ AgentFieldDeclaration
         ;
 
 AgentPropertyDeclaration
-	:
+	: ValueModifier VariableDeclarators
 	;
+
+ValueModifier
+	: VAL
+	| VAR
+	;
+VariableDeclarators
+	: VariableDeclarator
+	| VariableDeclarators ',' VariableDeclarator
+	;
+
+VariableDeclarator
+	: DeclaratorName
+	| DeclaratorName '=' VariableInitializer
+	| DeclaratorName ':' TypeSpecifier
+	| DeclaratorName ':' TypeSpecifier '=' VariableInitializer
+	;
+
 AgentReflexDeclaration
-	:
+	: DeclaratorName ':' REFLEX '(' AgentParameterList ')' '-''>' '(' AgentParameterList ')' MethodBody
 	;
 AgentFunctionDeclaration
-	:
-	;
-AgentConstructorDeclaration
-	:
+	: DeclaratorName ':' FN '(' AgentParameterList ')' '-''>' '(' AgentParameterList ')' MethodBody
 	;
 
+AgentParameterList
+	: AgentParameter
+	| AgentParameterList ',' AgentParameter
+	| /*nothing*/
+	;
 
+AgentParameter
+	: VariableDeclarator 
+	;
