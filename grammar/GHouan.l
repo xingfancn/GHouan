@@ -134,7 +134,6 @@ Literal		({Numeric}|{Character}|{String})
 "new"		{return NEW;}
 "null"		{return JNULL;}
 
-
 "this"		{return THIS;}
 "self" 		{return SELF;}
 
@@ -143,10 +142,9 @@ Literal		({Numeric}|{Character}|{String})
 "trait"		{return TRAIT;}
 "die" 		{return DIE;}
 
-
 "var" 		{return VAR;}
 "val" 		{return VAL;}
-//------------------------------
+
 {Identifier}	{return IDENTIFIER;}
 
 {DecimalNum}    {return LITERAL;}

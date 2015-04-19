@@ -97,6 +97,7 @@
 %token FN REFLEX EMIT
 %token AGENT OBJECT TRAIT DIE
 %token VAL VAR
+
 %start CompilationUnit
 
 %%
@@ -132,7 +133,6 @@ SemiColons
 	: ';'
         | SemiColons ';'
         ;
-%%
 
 CompilationUnit
 	: ProgramFile
@@ -175,13 +175,11 @@ QualifiedName
 	;
 
 
-%%
-
 TypeDeclaration
 	: ObjectHeader '{' FieldDeclarations      '}'
 	| ObjectHeader '{'                        '}'
-	| AgentHeader  '{' AgentFieldDeclarations '}'
-	| AgentHeader  '{'                        '}'
+	| AGENT  '{' AgentFieldDeclarations '}'
+	| AGENT  '{'                        '}'
 	;
 
 ObjectHeader
@@ -223,8 +221,6 @@ Interfaces
 	: IMPLEMENTS ObjectNameList
 	;
 
-
-%% 
 
 FieldDeclarations
 	: FieldDeclarationOptSemi
@@ -475,8 +471,8 @@ FieldAccess
 	: NotJustName '.' IDENTIFIER
 	| RealPostfixExpression '.' IDENTIFIER
         | QualifiedName '.' THIS
-        | QualifiedName '.' CLASS
-        | PrimitiveType '.' CLASS
+        | QualifiedName '.' OBJECT
+        | PrimitiveType '.' OBJECT
 	;
 
 MethodCall
@@ -681,7 +677,6 @@ ConstantExpression
 	: ConditionalExpression
 	;
 
-%%
 
 AgentFieldDeclarations
 	: AgentFieldDeclarationOptSemi
@@ -697,7 +692,6 @@ AgentFieldDeclaration
 	: AgentPropertyDeclaration 
 	| AgentReflexDeclaration
 	| AgentFunctionDeclaration
-	| AgentConstructorDeclaration
         ;
 
 AgentPropertyDeclaration
