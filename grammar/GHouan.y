@@ -64,24 +64,20 @@ PrimitiveType
 	| VOID
 	;
 
-SemiColons
+Semicolon
 	: ';'
-        | SemiColons ';'
         ;
 
+/******************************/
 CompilationUnit
-	: ProgramFile
-        ;
-
-ProgramFile
-	: PackageStatement UsingStatements TypeDeclarations
-	| PackageStatement                 TypeDeclarations
-	|                  UsingStatements TypeDeclarations
-	|                                  TypeDeclarations
+	: PackageDeclaration UsingDeclarations  TypeDeclarations
+	| PackageDeclaration                    TypeDeclarations
+	|                    UsingDeclarations  TypeDeclarations
+	|                                       TypeDeclarations
 	;
 
-PackageStatement
-	: PACKAGE QualifiedName SemiColons
+PackageDeclaration
+	: PACKAGE QualifiedName Semicolon
 	;
 
 TypeDeclarations
@@ -91,17 +87,17 @@ TypeDeclarations
 
 TypeDeclarationOptSemi
         : TypeDeclaration
-        | TypeDeclaration SemiColons
+        | TypeDeclaration Semicolon
         ;
 
-UsingStatements
-	: UsingStatement
-	| UsingStatements UsingStatement
+UsingDeclarations
+	: UsingDeclaration
+	| UsingDeclarations UsingDeclaration
 	;
 
-UsingStatement
-	: USING QualifiedName SemiColons
-	| USING QualifiedName '.' '*' SemiColons
+UsingDeclaration
+	: USING QualifiedName Semicolon
+	| USING QualifiedName '.' '*' Semicolon
 	;
 
 QualifiedName
@@ -113,8 +109,8 @@ QualifiedName
 TypeDeclaration
 	: ObjectHeader '{' FieldDeclarations      '}'
 	| ObjectHeader '{'                        '}'
-	| AGENT  '{' AgentFieldDeclarations '}'
-	| AGENT  '{'                        '}'
+	| AGENT        '{' AgentFieldDeclarations '}'
+	| AGENT        '{'                        '}'
 	;
 
 ObjectHeader
@@ -164,7 +160,7 @@ FieldDeclarations
 
 FieldDeclarationOptSemi
         : FieldDeclaration
-        | FieldDeclaration SemiColons
+        | FieldDeclaration Semicolon
         ;
 
 FieldDeclaration
@@ -620,7 +616,7 @@ AgentFieldDeclarations
 
 AgentFieldDeclarationOptSemi
         : AgentFieldDeclaration
-        | AgentFieldDeclaration SemiColons
+        | AgentFieldDeclaration Semicolon
         ;
 
 AgentFieldDeclaration
