@@ -35,3 +35,14 @@ class TraitDeclaration {
 class AgentDeclaration {
 };
 
+class FieldVariableDeclaration {
+};
+
+class MethodDeclaration {
+};
+
+class ConstructorDeclaration {
+};
+
+
+

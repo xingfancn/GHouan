@@ -1,5 +1,5 @@
 %{
-#include <ytab.h>
+#include "./GHouan.tab.h"
 %}
 
 %e 1600
@@ -168,3 +168,6 @@ Literal		({Numeric}|{Character}|{String})
 
 {Comment}	{}
 
+%%
+
+int yywrap(void){}

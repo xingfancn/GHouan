@@ -12,12 +12,12 @@
 %token FINAL FINALLY FLOAT FOR FUTURE
 %token GENERIC GOTO
 %token IF IMPLEMENTS USING INNER INSTANCEOF INT INTERFACE
-%token LONG
+%token LONG LOOP
 %token NATIVE NEW JNULL
 %token OPERATOR OUTER
 %token PACKAGE PRIVATE PROTECTED PUBLIC
 %token REST RETURN
-%token SHORT STATIC SUPER SWITCH SYNCHRONIZED
+%token SHORT STATIC SUPER SWITCH SYNCHRONIZED SELF
 %token THIS THROW THROWS TRANSIENT TRY
 %token VOID VOLATILE
 %token WHILE
@@ -674,6 +674,7 @@ int main(int argc, char **argv) {
 	char* usage = "%s, usage [infile] [outfile] \n";
 	if ((argc > 3) || (1 == argc)) {
 		fprintf(stderr, usage, argv[0]);
+		exit(1);
 	}
 	input_file_name = argv[1];
 	if (argc = 3) {
@@ -685,18 +686,20 @@ int main(int argc, char **argv) {
 	//get input file handler
 	yyin = fopen(input_file_name, "r");
 	if (NULL == yyin) {
-		fprintf(stderr, "%s: cannot open file %s", argv[0], input_file_name);
+		fprintf(stderr, "%s: cannot open file %s\n", argv[0], input_file_name);
 		exit(1);
 	}
 	//get output file handler
 	yyout = fopen(output_file_name, "w");
 	if (NULL == yyout) {
-		fprintf(stderr, "%s: cannot create file %s", argv[0], output_file_name);
+		fprintf(stderr, "%s: cannot create file %s\n", argv[0], output_file_name);
 		exit(1);
 	}
 
 	/* yyparse */
 	yyparse();
-	end_file();
+	//end_file();
 	exit(0);
 }
+
+int yyerror(void){}

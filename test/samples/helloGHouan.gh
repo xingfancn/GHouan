@@ -1,0 +1,49 @@
+package GHouan;
+import java.util.ArrayList;
+
+
+public class xPoint{
+	private int x;
+	private int y;
+	public int[] a = new int[10];
+	public int sum=0;
+	
+	xPoint(int a, int b)
+	{
+		this.setX(a);
+		this.setY(b);
+		for (int i=0; i<10; i++) {
+			this.a[i] = i;
+		}
+	}
+	
+	xPoint(xPoint p) {
+		this.x = p.getX();
+		this.y = p.getY();
+		for (int i=0; i<10; i++) {
+			this.a[i] = i;
+		}
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int xx) {
+		this.x = xx;
+	}
+	
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int yy) {
+		this.y = yy;
+	}
+	
+	public static xPoint pointReduction(xPoint p1, xPoint p2) {
+		p1.x += p2.x;
+		p1.y += p2.y;
+		return p1;
+	}
+}
