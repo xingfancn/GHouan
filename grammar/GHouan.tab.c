@@ -64,76 +64,11 @@
 /* Copy the first part of user declarations.  */
 #line 1 "GHouan.y" /* yacc.c:339  */
 
-/*------------------------------------------------------------------
- * Copyright (C)
- *   1996, 1997, 1998 Dmitri Bronnikov, All rights reserved.
- *
- * THIS GRAMMAR IS PROVIDED "AS IS" WITHOUT  ANY  EXPRESS  OR
- * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES  OF  MERCHANTABILITY  AND  FITNESS  FOR  A  PARTICULAR
- * PURPOSE, OR NON-INFRINGMENT.
- *
- * Bronikov@inreach.com
- *
- *------------------------------------------------------------------
- *
- * VERSION 1.06 DATE 20 AUG 1998
- *
- *------------------------------------------------------------------
- *
- * UPDATES
- *
- * 1.06 Correction of Java 1.1 syntax
- * 1.05 Yet more Java 1.1
- *      <qualified name>.<allocation expression>
- * 1.04 More Java 1.1 features:
- *      <class name>.this
- *      <type name>.class
- * 1.03 Added Java 1.1 features:
- *      inner classes,
- *      anonymous classes,
- *      non-static initializer blocks,
- *      array initialization by new operator
- * 1.02 Corrected cast expression syntax
- * 1.01 All shift/reduce conflicts, except dangling else, resolved
- *
- *------------------------------------------------------------------
- *
- * PARSING CONFLICTS RESOLVED
- *
- * Some Shift/Reduce conflicts have been resolved at the expense of
- * the grammar defines a superset of the language. The following
- * actions have to be performed to complete program syntax checking:
- *
- * 1) Check that modifiers applied to a class, interface, field,
- *    or constructor are allowed in respectively a class, inteface,
- *    field or constructor declaration. For example, a class
- *    declaration should not allow other modifiers than abstract,
- *    final and public.
- *
- * 2) For an expression statement, check it is either increment, or
- *    decrement, or assignment expression.
- *
- * 3) Check that type expression in a cast operator indicates a type.
- *    Some of the compilers that I have tested will allow simultaneous
- *    use of identically named type and variable in the same scope
- *    depending on context.
- *
- * 4) Change lexical definition to change '[' optionally followed by
- *    any number of white-space characters immediately followed by ']'
- *    to OP_DIM token. I defined this token as [\[]{white_space}*[\]]
- *    in the lexer.
- *
- *------------------------------------------------------------------
- *
- * UNRESOLVED SHIFT/REDUCE CONFLICTS
- *
- * Dangling else in if-then-else
- *
- *------------------------------------------------------------------
- */
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
-#line 137 "GHouan.tab.c" /* yacc.c:339  */
+#line 72 "GHouan.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -274,7 +209,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 278 "GHouan.tab.c" /* yacc.c:358  */
+#line 213 "GHouan.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -580,36 +515,36 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,   106,   106,   107,   111,   112,   116,   117,   121,   122,
-     123,   124,   125,   126,   127,   128,   129,   133,   134,   138,
-     142,   143,   144,   145,   149,   153,   154,   158,   159,   163,
-     164,   168,   169,   173,   174,   179,   180,   181,   182,   186,
-     187,   188,   189,   190,   191,   192,   193,   197,   198,   202,
-     203,   204,   205,   206,   207,   211,   212,   216,   217,   221,
-     226,   227,   231,   232,   236,   237,   238,   239,   240,   241,
-     245,   246,   250,   251,   255,   256,   260,   261,   262,   266,
-     267,   268,   272,   273,   274,   275,   279,   280,   281,   285,
-     286,   290,   291,   295,   296,   300,   304,   305,   309,   310,
-     311,   312,   316,   317,   321,   325,   329,   330,   334,   335,
-     339,   340,   344,   345,   349,   350,   351,   352,   353,   354,
-     355,   356,   360,   364,   365,   366,   370,   374,   375,   376,
-     380,   381,   382,   383,   387,   388,   389,   393,   394,   398,
-     402,   403,   407,   408,   409,   410,   411,   412,   413,   417,
-     418,   419,   420,   424,   425,   429,   433,   434,   438,   442,
-     443,   447,   448,   449,   453,   454,   458,   459,   460,   461,
-     462,   466,   467,   471,   472,   473,   474,   475,   479,   480,
-     484,   485,   486,   490,   491,   492,   496,   497,   501,   502,
-     506,   507,   508,   509,   510,   511,   515,   516,   520,   521,
-     522,   526,   527,   531,   535,   536,   540,   541,   545,   546,
-     550,   551,   552,   553,   557,   558,   562,   563,   567,   568,
-     572,   573,   574,   575,   579,   580,   584,   588,   589,   590,
-     591,   595,   596,   597,   601,   602,   603,   604,   608,   609,
-     610,   611,   612,   613,   617,   618,   619,   623,   624,   628,
-     629,   633,   634,   638,   639,   643,   644,   648,   649,   653,
-     654,   658,   659,   660,   661,   662,   663,   664,   665,   666,
-     667,   668,   669,   673,   677,   682,   683,   687,   688,   692,
-     693,   694,   698,   702,   703,   706,   707,   711,   712,   713,
-     714,   718,   721,   725,   726,   727,   731
+       0,    41,    41,    42,    46,    47,    51,    52,    56,    57,
+      58,    59,    60,    61,    62,    63,    64,    68,    69,    73,
+      77,    78,    79,    80,    84,    88,    89,    93,    94,    98,
+      99,   103,   104,   108,   109,   114,   115,   116,   117,   121,
+     122,   123,   124,   125,   126,   127,   128,   132,   133,   137,
+     138,   139,   140,   141,   142,   146,   147,   151,   152,   156,
+     161,   162,   166,   167,   171,   172,   173,   174,   175,   176,
+     180,   181,   185,   186,   190,   191,   195,   196,   197,   201,
+     202,   203,   207,   208,   209,   210,   214,   215,   216,   220,
+     221,   225,   226,   230,   231,   235,   239,   240,   244,   245,
+     246,   247,   251,   252,   256,   260,   264,   265,   269,   270,
+     274,   275,   279,   280,   284,   285,   286,   287,   288,   289,
+     290,   291,   295,   299,   300,   301,   305,   309,   310,   311,
+     315,   316,   317,   318,   322,   323,   324,   328,   329,   333,
+     337,   338,   342,   343,   344,   345,   346,   347,   348,   352,
+     353,   354,   355,   359,   360,   364,   368,   369,   373,   377,
+     378,   382,   383,   384,   388,   389,   393,   394,   395,   396,
+     397,   401,   402,   406,   407,   408,   409,   410,   414,   415,
+     419,   420,   421,   425,   426,   427,   431,   432,   436,   437,
+     441,   442,   443,   444,   445,   446,   450,   451,   455,   456,
+     457,   461,   462,   466,   470,   471,   475,   476,   480,   481,
+     485,   486,   487,   488,   492,   493,   497,   498,   502,   503,
+     507,   508,   509,   510,   514,   515,   519,   523,   524,   525,
+     526,   530,   531,   532,   536,   537,   538,   539,   543,   544,
+     545,   546,   547,   548,   552,   553,   554,   558,   559,   563,
+     564,   568,   569,   573,   574,   578,   579,   583,   584,   588,
+     589,   593,   594,   595,   596,   597,   598,   599,   600,   601,
+     602,   603,   604,   608,   612,   617,   618,   622,   623,   627,
+     628,   629,   633,   637,   638,   641,   642,   646,   647,   648,
+     649,   653,   656,   660,   661,   662,   666
 };
 #endif
 
@@ -1985,7 +1920,7 @@ yyreduce:
   switch (yyn)
     {
       
-#line 1989 "GHouan.tab.c" /* yacc.c:1646  */
+#line 1924 "GHouan.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2212,4 +2147,33 @@ yyreturn:
     YYSTACK_FREE (yymsg);
 #endif
   return yyresult;
+}
+#line 669 "GHouan.y" /* yacc.c:1906  */
+
+
+int main(int argc, char **argv) {
+	char* output_file_name;
+	char* input_file_name;
+	FILE* yyin;
+	FILE* yyout;
+	// Usage String
+	char* usage = "%s, usage [infile] [outfile] \n";
+	input_file_name = argv[1];
+	output_file_name = argv[2];
+	//get input file handler
+	yyin = fopen(input_file_name, "r");
+	if (NULL == yyin) {
+		fprintf(stderr, "%s: cannot open file %s", argv[0], input_file_name);
+		exit(1);
+	}
+	yyout = fopen(output_file_name, "w");
+	if (NULL == yyout) {
+		fprintf(stderr, "%s: cannot create file %s", argv[0], output_file_name);
+		exit(1);
+	}
+
+	/* yyparse */
+	yyparse();
+	end_file();
+	exit(0);
 }
