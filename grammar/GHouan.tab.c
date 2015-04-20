@@ -2154,18 +2154,28 @@ yyreturn:
 int main(int argc, char **argv) {
 	char* output_file_name;
 	char* input_file_name;
-	FILE* yyin;
-	FILE* yyout;
+	extern FILE* yyin;
+	extern FILE* yyout;
+
 	// Usage String
 	char* usage = "%s, usage [infile] [outfile] \n";
+	if ((argc > 3) || (1 == argc)) {
+		fprintf(stderr, usage, argv[0]);
+	}
 	input_file_name = argv[1];
-	output_file_name = argv[2];
+	if (argc = 3) {
+		output_file_name = argv[2];
+	} else {
+		output_file_name = "GHouan_default.out";
+	}
+	
 	//get input file handler
 	yyin = fopen(input_file_name, "r");
 	if (NULL == yyin) {
 		fprintf(stderr, "%s: cannot open file %s", argv[0], input_file_name);
 		exit(1);
 	}
+	//get output file handler
 	yyout = fopen(output_file_name, "w");
 	if (NULL == yyout) {
 		fprintf(stderr, "%s: cannot create file %s", argv[0], output_file_name);
